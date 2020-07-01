@@ -1,5 +1,5 @@
 <?php
-namespace packages\Domain;
+namespace Packages\Domain;
 
 final class Task
 {
@@ -82,16 +82,6 @@ final class Task
     public function isArchived(): bool
     {
         return $this->isArchived;
-    }
-
-    /**
-     * @param TaskId $taskId
-     *
-     * @return void
-     */
-    public function setId(TaskId $taskId): void
-    {
-        $this->id = $id;
     }
 
     /**

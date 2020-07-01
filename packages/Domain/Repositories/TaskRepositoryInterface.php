@@ -1,7 +1,7 @@
 <?php
-namespace packages\Domain\Repositories;
+namespace Packages\Domain\Repositories;
 
-use packages\Domain\Task;
+use Packages\Domain\Task;
 
 interface TaskRepositoryInterface
 {
@@ -16,5 +16,5 @@ interface TaskRepositoryInterface
      * @param Task $task
      * @return void
      */
-    public function insertOrUpdate(Task $task): void;
+    public function save(Task $task): void;
 }

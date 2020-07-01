@@ -1,10 +1,12 @@
 <?php
-namespace packages\Domain;
+namespace Packages\Domain;
 
 use DateTimeImmutable;
 
 final class DueDate
 {
+    const STRING_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @var string
      */
@@ -23,6 +25,14 @@ final class DueDate
      */
     public function value(): string
     {
-        return $this->dueDate->format('Y-m-d H:i:s');
+        return $this->dueDate->format(self::STRING_FORMAT);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired(): bool
+    {
+        return $this->dueDate < new DateTimeImmutable();
     }
 }

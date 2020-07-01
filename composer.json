@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "packages\\": "packages/"
+            "Packages\\": "packages/"
         },
         "classmap": [
             "database/seeds",
@@ -44,8 +44,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "UcanLab\\LaravelHelloWorld\\Test\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",

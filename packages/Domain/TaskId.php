@@ -10,12 +10,21 @@ final class TaskId
 
 
     /**
+     * 文字列型の数値'1234'を投げると暗黙的にintへキャストしてしまうので注意
      * @param int|null $id
      */
     public function __construct(?int $id)
     {
-        if (is_int($id) && $int < 0) {
-            throw new InvalidArgumentException('task id must be integer more than 0');
+        if (is_null($id)) {
+            $this->id = $id;
+            return;
+        }
+        if (!is_int($id)) {
+            throw new \InvalidArgumentException('task id must be an integer or null');
+        }
+
+        if ($id < 1) {
+            throw new \InvalidArgumentException('task id must be an integer more than 1');
         }
         $this->id = $id;
     }

@@ -1,5 +1,5 @@
 <?php
-namespace packages\Domain;
+namespace Packages\Domain;
 
 final class TaskName
 {
@@ -14,7 +14,7 @@ final class TaskName
     public function __construct(string $name)
     {
         if (mb_ereg_match("^(\s|　)+$", $name)) {
-            throw new InvalidArgumentException('Task name must contain a non-blank string');
+            throw new \InvalidArgumentException('Task name must contain a non-blank string');
         }
         $this->name = $name;
     }
