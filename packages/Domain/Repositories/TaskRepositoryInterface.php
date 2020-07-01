@@ -9,12 +9,12 @@ interface TaskRepositoryInterface
      * 全件取得
      * @return array
      */
-    public function all(): array;
+    public function getAll(): array;
 
     /**
      * 保存
      * @param Task $task
      * @return void
      */
-    public function save(Task $task): void;
+    public function store(Task $task): void;
 }
