@@ -14,9 +14,10 @@
                 <h1 class="title is-1">Task List</h1>
             </div>
             <div class="section">
-                <form class="field has-addons" method="POST" action="/addTask" id="task-form">
+                <form class="field has-addons" method="POST" action="/register" id="task-form">
+                    @csrf
                     <p class="control is-expanded">
-                        <input class="input is-fullwidth" type="text" placeholder="タスク入力">
+                        <input class="input is-fullwidth" name="name" type="text" placeholder="タスク入力">
                     </p>
                     <p class="control">
                         <button class="button">
@@ -51,8 +52,9 @@
                                     </span>
                                 </td>
                                 <td class="has-text-centered">
-                                    <form method="POST" action="/toggleIsDone" id="toggle-form">
-                                        <input name="is_done" type="checkbox" onchange="toggleIsDone({{ $task->id()->value() }})"
+                                    <form method="POST" action="/toggleDone" id="toggle-form">
+                                        @csrf
+                                        <input name="is_done" type="checkbox" value="1" onchange="toggleIsDone({{ $task->id()->value() }})"
                                             @if($task->isDone())
                                                 checked="checked"
                                             @endif
@@ -61,6 +63,7 @@
                                 </td>
                                 <td class="has-text-centered">
                                     <form method="POST" action="/archive" id="archive-form">
+                                        @csrf
                                         <input type="hidden" name="id" value="{{ $task->id()->value() }}">
                                         <button class="button is-danger">Archive</button>
                                     </form>
@@ -78,6 +81,7 @@
         toggleIsDone = (id) => {
             let input = document.createElement("input");
             input.name = "id"
+            input.type = "hidden"
             input.value = id
             let form = document.getElementById('toggle-form')
             form.appendChild(input)

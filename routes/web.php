@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', '\Packages\Controllers\ViewAllTaskController@index');
+Route::get('/', '\Packages\Controllers\TaskController@view');
+Route::post('/register', '\Packages\Controllers\TaskController@register');
+Route::post('/toggleDone', '\Packages\Controllers\TaskController@toggleDone');
+Route::post('/archive', '\Packages\Controllers\TaskController@archive');
