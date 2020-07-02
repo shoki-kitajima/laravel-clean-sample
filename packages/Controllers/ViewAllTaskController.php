@@ -10,6 +10,6 @@ class ViewAllTaskController extends Controller
     public function index(ViewAllTaskInterface $useCase)
     {
         $returns = $useCase->handle();
-        dd($returns);
+        return view('task', compact('returns'));
     }
 }
