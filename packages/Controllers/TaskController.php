@@ -14,16 +14,12 @@ class TaskController extends Controller
     }
 
     // public function register(RegisterTaskInterface $useCase)
-    // {
-    // }
     public function register(Request $req)
     {
         dd($req->post());
     }
 
     // public function toggleIsDone(ToggleDoneTaskInterface $useCase)
-    // {
-    // }
     public function toggleDone(Request $req)
     {
         dd($req->post());

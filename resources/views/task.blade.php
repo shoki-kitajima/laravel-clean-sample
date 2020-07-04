@@ -14,16 +14,41 @@
                 <h1 class="title is-1">Task List</h1>
             </div>
             <div class="section">
-                <form class="field has-addons" method="POST" action="/register" id="task-form">
+                <form class="has-addons" method="POST" action="/register" id="task-form">
                     @csrf
-                    <p class="control is-expanded">
-                        <input class="input is-fullwidth" name="name" type="text" placeholder="タスク入力">
-                    </p>
-                    <p class="control">
-                        <button class="button">
-                            登録
-                        </button>
-                    </p>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">TaskName</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded">
+                                    <input class="input is-fullwidth" name="name" type="text" placeholder="タスク入力">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">DueDate</label>
+                        </div>
+                        <div class="field-body">
+                            <p class="control">
+                                <input class="input" name="due_date" type="datetime-local">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label"></label>
+                        </div>
+                        <div class="field-body">
+                            <p class="control">
+                                <button class="button is-primary">
+                                    登録
+                                </button>
+                            </p>
+                        </div>
                 </form>
             </div>
             <div class="section">

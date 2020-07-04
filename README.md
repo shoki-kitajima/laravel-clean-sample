@@ -36,6 +36,7 @@
 7. ArchiveTaskInterface
 8. ArchiveTaskInteractor
 
+
 **path**
 
 * /app/packages/Usecases/ViewAllTaskInterface.php
@@ -71,11 +72,17 @@
 
 * /app/packages/Controllers/TaskController.php
 
-## InputBoundary
+## InputBoundary(UseCase Interfaces)
 
-1. RegisterTaskInputInterface
-2. ToggleDoneTaskInputInterface
-3. ArchiveTaskInputInterface
+1. ViewAllTaskInterface
+2. RegisterTaskInterface
+3. ToggleDoneTaskInterface
+4. ArchiveTaskInterface
+
+* /app/packages/Usecases/ViewAllTaskInterface.php
+* /app/packages/Usecases/RegisterTaskInterface.php
+* /app/packages/Usecases/ToggleDoneTaskInterface.php
+* /app/packages/Usecases/ArchiveTaskInterface.php
 
 **path**
 
