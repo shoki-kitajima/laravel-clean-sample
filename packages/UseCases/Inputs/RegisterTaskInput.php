@@ -1,7 +1,7 @@
 <?php
-namespace Packages\UseCases;
+namespace Packages\UseCases\Inputs;
 
-class RegisterTaskData
+class RegisterTaskInput
 {
     /**
      * @var string
@@ -36,6 +36,6 @@ class RegisterTaskData
      */
     public function dueDate(): string
     {
-        return $this->dueDate();
+        return $this->dueDate;
     }
 }

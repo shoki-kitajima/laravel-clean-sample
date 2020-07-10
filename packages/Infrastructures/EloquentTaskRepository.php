@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 class EloquentTaskRepository extends Model implements TaskRepositoryInterface
 {
     protected $table = 'tasks';
+    protected $fillable = ['name', 'due_date'];
 
     /**
      * 全件取得
@@ -23,12 +24,17 @@ class EloquentTaskRepository extends Model implements TaskRepositoryInterface
     }
 
     /**
-     * 保存
+     * 登録
      * @param Task $task
      * @return void
      */
-    public function store(Task $task): void
+    public function register(Task $task): void
     {
+        $newTask = parent::create([
+            'name' => $task->name()->value(),
+            'due_date' => $task->dueDate()->value()
+        ]);
+        $newTask->save();
     }
 
     private function collectionToEntityArray(Collection $collection):array

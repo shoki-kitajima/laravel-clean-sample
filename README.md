@@ -79,16 +79,12 @@
 3. ToggleDoneTaskInterface
 4. ArchiveTaskInterface
 
+**path**
+
 * /app/packages/Usecases/ViewAllTaskInterface.php
 * /app/packages/Usecases/RegisterTaskInterface.php
 * /app/packages/Usecases/ToggleDoneTaskInterface.php
 * /app/packages/Usecases/ArchiveTaskInterface.php
-
-**path**
-
-* /app/packages/Usecases/Input/RegisterTaskInputInterface.php
-* /app/packages/Usecases/Input/ToggleDoneTaskInputInterface.php
-* /app/packages/Usecases/Input/ArchiveTaskInputInterface.php
 
 ## InputData
 
@@ -98,9 +94,9 @@
 
 **path**
 
-* /app/packages/Usecases/Input/RegisterTaskInput.php
-* /app/packages/Usecases/Input/ToggleDoneTaskInput.php
-* /app/packages/Usecases/Input/ArchiveTaskInput.php
+* /app/packages/Usecases/Inputs/RegisterTaskInput.php
+* /app/packages/Usecases/Inputs/ToggleDoneTaskInputData.php
+* /app/packages/Usecases/Inputs/ArchiveTaskInput.php
 
 ## View
 

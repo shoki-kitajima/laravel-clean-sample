@@ -16,5 +16,5 @@ interface TaskRepositoryInterface
      * @param Task $task
      * @return void
      */
-    public function store(Task $task): void;
+    public function register(Task $task): void;
 }

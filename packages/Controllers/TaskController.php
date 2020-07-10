@@ -4,6 +4,8 @@ namespace Packages\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Packages\UseCases\ViewAllTaskInterface;
+use Packages\UseCases\RegisterTaskInterface;
+use Packages\UseCases\Inputs\RegisterTaskInput;
 
 class TaskController extends Controller
 {
@@ -13,10 +15,11 @@ class TaskController extends Controller
         return view('task', compact('returns'));
     }
 
-    // public function register(RegisterTaskInterface $useCase)
-    public function register(Request $req)
+    public function register(RegisterTaskInterface $useCase, Request $req)
     {
-        dd($req->post());
+        $input = new RegisterTaskInput($req->post('name'), $req->post('due_date'));
+        $useCase->handle($input);
+        return redirect('/');
     }
 
     // public function toggleIsDone(ToggleDoneTaskInterface $useCase)

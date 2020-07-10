@@ -1,7 +1,7 @@
 <?php
-namespace Packages\UseCases;
+namespace Packages\UseCases\Inputs;
 
-class ToggleDoneTaskInputData
+class ToggleDoneTaskInput
 {
     /**
      * @var int
