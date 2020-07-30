@@ -19,6 +19,9 @@ final class TaskName
         if (mb_ereg_match("^(\s|　)+$", $name)) {
             throw new \InvalidArgumentException('Task name must contain a non-blank string');
         }
+        if ($name === '') {
+            throw new \InvalidArgumentException('Task name must not be blank');
+        }
         $this->name = $name;
     }
 
