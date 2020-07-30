@@ -16,7 +16,7 @@
 ## Value Objects
 
 1. TaskId   // int > 0
-2. TaskName // string != ''
+2. TaskName // string != '' && mb_ereg_match("^(\s|　)+$"
 3. DueDate  // DateTimeImmutable
 
 **path**

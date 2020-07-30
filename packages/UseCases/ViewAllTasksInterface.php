@@ -4,7 +4,7 @@ namespace Packages\UseCases;
 /**
  * 閲覧インターフェース
  */
-interface ViewAllTaskInterface
+interface ViewAllTasksInterface
 {
     /**
      * @return array

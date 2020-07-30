@@ -25,14 +25,16 @@ final class TaskId
         if (!is_int($id)) {
             throw new \InvalidArgumentException('task id must be an integer or null');
         }
-
         if ($id < 1) {
             throw new \InvalidArgumentException('task id must be an integer more than 1');
         }
         $this->id = $id;
     }
 
-    public function value()
+    /**
+     * @return int|null
+     */
+    public function value(): ?int
     {
         return $this->id;
     }

@@ -6,7 +6,7 @@ use Packages\Domain\Repositories\TaskRepositoryInterface;
 /**
  * 閲覧実装
  */
-class ViewAllTaskInteractor implements ViewAllTaskInterface
+class ViewAllTasksInteractor implements ViewAllTasksInterface
 {
     /**
      * @var TaskRepositoryInterface

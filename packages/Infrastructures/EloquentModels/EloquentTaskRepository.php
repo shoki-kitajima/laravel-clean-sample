@@ -1,5 +1,5 @@
 <?php
-namespace Packages\Infrastructures;
+namespace Packages\Infrastructures\EloquentModels;
 
 use Illuminate\Database\Eloquent\Model;
 use Packages\Domain\Repositories\TaskRepositoryInterface;
