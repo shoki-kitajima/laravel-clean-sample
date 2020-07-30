@@ -8,6 +8,9 @@ use Packages\Domain\TaskName;
 use Packages\Domain\DueDate;
 use Packages\UseCases\Inputs\RegisterTaskInput;
 
+/**
+ * 登録実装
+ */
 class RegisterTaskInteractor implements RegisterTaskInterface
 {
     /**
@@ -15,12 +18,20 @@ class RegisterTaskInteractor implements RegisterTaskInterface
      */
     private $repository;
 
+    /**
+     * @param TaskRepositoryInterface $repository
+     */
     public function __construct(TaskRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    public function handle(RegisterTaskInput $input)
+    /**
+     * @param RegisterTaskInput $input
+     *
+     * @return Task
+     */
+    public function handle(RegisterTaskInput $input): Task
     {
         $id = new TaskId(null);
         $taskName = new TaskName($input->name());

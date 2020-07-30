@@ -65,7 +65,7 @@
 1. TaskController
    1. index()      // view all tasks
    2. register()
-   3. toggleDone()
+   3. toggleIsDone()
    4. archive()
 
 **path**
@@ -76,26 +76,26 @@
 
 1. ViewAllTaskInterface
 2. RegisterTaskInterface
-3. ToggleDoneTaskInterface
+3. ToggleIsDoneTaskInterface
 4. ArchiveTaskInterface
 
 **path**
 
 * /app/packages/Usecases/ViewAllTaskInterface.php
 * /app/packages/Usecases/RegisterTaskInterface.php
-* /app/packages/Usecases/ToggleDoneTaskInterface.php
+* /app/packages/Usecases/ToggleIsDoneTaskInterface.php
 * /app/packages/Usecases/ArchiveTaskInterface.php
 
 ## InputData
 
 1. RegisterTaskInput
-2. ToggleDoneTaskInput
+2. ToggleIsDoneTaskInput
 3. ArchiveTaskInput
 
 **path**
 
 * /app/packages/Usecases/Inputs/RegisterTaskInput.php
-* /app/packages/Usecases/Inputs/ToggleDoneTaskInputData.php
+* /app/packages/Usecases/Inputs/ToggleIsDoneTaskInputData.php
 * /app/packages/Usecases/Inputs/ArchiveTaskInput.php
 
 ## View

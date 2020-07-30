@@ -1,6 +1,9 @@
 <?php
 namespace packages\Domain;
 
+/**
+ * タスクIDオブジェクト
+ */
 final class TaskId
 {
     /**

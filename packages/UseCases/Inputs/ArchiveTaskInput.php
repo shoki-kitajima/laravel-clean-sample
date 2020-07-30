@@ -1,6 +1,10 @@
 <?php
 namespace Packages\UseCases\Inputs;
 
+/**
+ * アーカイブ時のリクエスト
+ * 単なるDTOであり検査はしない
+ */
 class ArchiveTaskInput
 {
     /**

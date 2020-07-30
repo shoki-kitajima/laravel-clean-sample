@@ -3,6 +3,9 @@ namespace Packages\UseCases;
 
 use Packages\Domain\Repositories\TaskRepositoryInterface;
 
+/**
+ * 閲覧実装
+ */
 class ViewAllTaskInteractor implements ViewAllTaskInterface
 {
     /**
@@ -16,8 +19,7 @@ class ViewAllTaskInteractor implements ViewAllTaskInterface
     }
 
     /**
-     * TODO: outputもBoundary用意する
-     * @return array
+     * @return array[Task]
      */
     public function handle(): array
     {

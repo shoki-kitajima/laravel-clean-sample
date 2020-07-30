@@ -3,6 +3,9 @@ namespace Packages\Domain;
 
 use DateTimeImmutable;
 
+/**
+ * DueDateオブジェクト
+ */
 final class DueDate
 {
     const STRING_FORMAT = 'Y-m-d H:i:s';

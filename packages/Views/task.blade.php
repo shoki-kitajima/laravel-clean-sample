@@ -10,10 +10,19 @@
 <body>
     <div id="app">
         <div class="container">
-            <div class="section">
+            <div class="section pb-0">
                 <h1 class="title is-1">Task List</h1>
             </div>
             <div class="section">
+                @if ($errors->any())
+                    <div class="notification is-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form class="has-addons" method="POST" action="/register" id="task-form">
                     @csrf
                     <div class="field is-horizontal">
@@ -34,7 +43,7 @@
                         </div>
                         <div class="field-body">
                             <p class="control">
-                                <input class="input" name="due_date" type="datetime-local">
+                                <input class="input" name="due_date" type="datetime-local" min="">
                             </p>
                         </div>
                     </div>
@@ -51,7 +60,7 @@
                         </div>
                 </form>
             </div>
-            <div class="section">
+            <div class="pt-6">
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
@@ -77,7 +86,7 @@
                                     </span>
                                 </td>
                                 <td class="has-text-centered">
-                                    <form method="POST" action="/toggleDone" id="toggle-form">
+                                    <form method="POST" action="/toggleIsDone" id="toggle-form">
                                         @csrf
                                         <input name="is_done" type="checkbox" value="1" onchange="toggleIsDone({{ $task->id()->value() }})"
                                             @if($task->isDone())

@@ -1,6 +1,10 @@
 <?php
 namespace Packages\UseCases\Inputs;
 
+/**
+ * 登録時リクエスト
+ * リクエストごとのdateformatの違いを吸収
+ */
 class RegisterTaskInput
 {
     /**
@@ -20,7 +24,7 @@ class RegisterTaskInput
     public function __construct(string $name, string $dueDate)
     {
         $this->name = $name;
-        $this->dueDate = $dueDate;
+        $this->dueDate = date('Y-m-d H:i:s', strtotime($dueDate));
     }
 
     /**

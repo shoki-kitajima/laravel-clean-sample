@@ -1,6 +1,9 @@
 <?php
 namespace Packages\Domain;
 
+/**
+ * タスク名オブジェクト
+ */
 final class TaskName
 {
     /**

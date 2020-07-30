@@ -1,7 +1,11 @@
 <?php
 namespace Packages\UseCases\Inputs;
 
-class ToggleDoneTaskInput
+/**
+ * isDoneのtoggle用リクエスト
+ * 単なるDTOであり検査はしない
+ */
+class ToggleIsDoneTaskInput
 {
     /**
      * @var int
@@ -9,9 +13,12 @@ class ToggleDoneTaskInput
     private $id;
 
     /**
+     * @param int $id
+     * @param bool $isDone
      */
     public function __construct(int $id)
     {
+        $this->id = $id;
     }
 
     /**
@@ -19,6 +26,6 @@ class ToggleDoneTaskInput
      */
     public function id(): int
     {
-        return $this->id();
+        return $this->id;
     }
 }
