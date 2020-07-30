@@ -46,6 +46,9 @@ class EloquentTaskRepository extends Model implements TaskRepositoryInterface
     public function toggleIsDone(TaskId $taskId): void
     {
         $eloquentTask = parent::find($taskId->value());
+        if (is_null($eloquentTask)) {
+            throw new \Exception('trying to find a nonexistent task');
+        }
         $eloquentTask->is_done = $eloquentTask->is_done ? false : true;
         $eloquentTask->save();
     }
@@ -58,6 +61,9 @@ class EloquentTaskRepository extends Model implements TaskRepositoryInterface
     public function archive(TaskId $taskId): void
     {
         $eloquentTask = parent::find($taskId->value());
+        if (is_null($eloquentTask)) {
+            throw new \Exception('trying to find a nonexistent task');
+        }
         $eloquentTask->is_archived = true;
         $eloquentTask->save();
     }

@@ -33,14 +33,22 @@ class TaskController extends Controller
     public function toggleIsDone(ToggleIsDoneTaskInterface $useCase, Request $req)
     {
         $input = new ToggleIsDoneTaskInput($req->post('id'));
-        $useCase->handle($input);
+        try {
+            $useCase->handle($input);
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', $e->getMessage());
+        }
         return redirect('/');
     }
 
     public function archive(ArchiveTaskInterface $useCase, Request $req)
     {
         $input = new ArchiveTaskInput($req->post('id'));
-        $useCase->handle($input);
+        try {
+            $useCase->handle($input);
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', $e->getMessage());
+        }
         return redirect('/');
     }
 }

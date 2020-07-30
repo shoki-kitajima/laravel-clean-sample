@@ -23,6 +23,11 @@
                         </ul>
                     </div>
                 @endif
+                @if (session('error'))
+                    <p class="notification is-danger">
+                        {{ session('error') }}
+                    </p>
+                @endif
                 <form class="has-addons" method="POST" action="/register" id="task-form">
                     @csrf
                     <div class="field is-horizontal">
