@@ -13,7 +13,7 @@ final class TaskId
 
 
     /**
-     * 文字列型の数値'1234'を投げると暗黙的にintへキャストしてしまうので注意
+     * 文字列型の数値'1234'を投げると暗黙的にintへキャストしてしまうことに注意
      * @param int|null $id
      */
     public function __construct(?int $id)
