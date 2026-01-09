@@ -7,13 +7,19 @@ services:
         build:
             context: .
             dockerfile: ./Dockerfile
+            # Stage 3: Final Image (本番用 vendor のみ使用) をターゲットにする
+            target: final
         container_name: laravel-app
         restart: always
         volumes:
             # 開発中はコード変更をリアルタイムで反映させるためにプロジェクト全体をマウント
+            # 注意: このマウントにより、ホスト側の vendor が存在すると上書きされる可能性があります
             - ./:/var/www/html
             # 【修正点】 vendor ディレクトリをホストマウントから除外し、ビルドされた vendor を保持する
-            - /var/www/html/vendor # 匿名ボリュームを追加
+            # vendor が存在するホストマウントを避けるための匿名ボリューム
+            - /var/www/html/vendor
+        depends_on:
+            - db
         networks:
             - app-network
 
@@ -23,10 +29,10 @@ services:
         container_name: laravel-nginx
         restart: always
         ports:
-            - "8080:80" # ホストの8080ポートでアクセス可能にする
+            - "8080:80"
         volumes:
-            - ./:/var/www/html # アプリケーションコードをマウント
-            - ./default.conf:/etc/nginx/conf.d/default.conf # Nginx設定ファイルをマウント
+            - ./:/var/www/html
+            - ./default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - app
         networks:
@@ -44,6 +50,31 @@ services:
             MYSQL_PASSWORD: laravel_password
         volumes:
             - dbdata:/var/lib/mysql
+        networks:
+            - app-network
+
+    # --- 4. 【追加】テスト実行サービス (CLI) ---
+    # PHPUnit や Composer 実行専用のコンテナ
+    tester:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            # Stage 4: test_runner (開発用 vendor を含むステージ) をターゲットにする
+            target: test_runner
+        container_name: laravel-tester
+        # テスト実行時には一時的に起動し、終了したら停止・削除される
+        volumes:
+            - .:/app # コードを /app にマウント (Dockerfile の WORKDIR に合わせる)
+            - /app/vendor # 【重要】ホスト側の vendor マウントを防ぐ
+        environment:
+            # テスト実行時に必要な環境変数を db サービスに合わせて設定
+            DB_CONNECTION: mysql
+            DB_HOST: db
+            DB_DATABASE: laravel_clean
+            DB_USERNAME: laravel_user
+            DB_PASSWORD: laravel_password
+        depends_on:
+            - db
         networks:
             - app-network
 
