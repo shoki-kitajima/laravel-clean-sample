@@ -126,4 +126,27 @@ final class Task
     {
         $this->isArchived = $isArchived;
     }
+
+    // ドメインロジックに振る舞いを持たせる。
+    // 例えば、今回の場合はtoggleやアーカイブなどタスクドメインが持つビジネスルール
+
+    /**
+     * 完了toggle
+     *
+     * @return void
+     */
+    public function toggleIsDone(): void
+    {
+        $this->isDone = !$this->isDone;
+    }
+
+    /**
+     * アーカイブ
+     *
+     * @return void
+     */
+    public function archive(): void
+    {
+        $this->isArchived = true;
+    }
 }

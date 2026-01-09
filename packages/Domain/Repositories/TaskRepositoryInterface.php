@@ -16,23 +16,16 @@ interface TaskRepositoryInterface
     public function getAll(): array;
 
     /**
+     * IDで検索
+     * @param TaskId $id
+     * @return Task|null
+     */
+    public function findById(TaskId $id): ?Task;
+
+    /**
      * 保存
      * @param Task $task
-     * @return void
+     * @return Task
      */
-    public function register(Task $task): Task;
-
-    /**
-     * @param int $id
-     *
-     * @return void
-     */
-    public function toggleIsDone(TaskId $id): void;
-
-    /**
-     * @param TaskId $id
-     *
-     * @return void
-     */
-    public function archive(TaskId $id): void;
+    public function save(Task $task): Task;
 }

@@ -31,6 +31,8 @@ class ToggleIsDoneTaskInteractor implements ToggleIsDoneTaskInterface
     public function handle(ToggleIsDoneTaskInput $input): void
     {
         $taskId = new TaskId($input->id());
-        $this->repository->toggleIsDone($taskId);
+        $task = $this->repository->findById($taskId);
+        $task->toggleIsDone();
+        $this->repository->save($task);
     }
 }

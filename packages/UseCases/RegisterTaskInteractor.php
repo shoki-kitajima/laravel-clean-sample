@@ -37,6 +37,6 @@ class RegisterTaskInteractor implements RegisterTaskInterface
         $taskName = new TaskName($input->name());
         $dueDate = new DueDate($input->dueDate());
         $task = new Task($id, $taskName, $dueDate);
-        return $this->repository->register($task);
+        return $this->repository->save($task);
     }
 }

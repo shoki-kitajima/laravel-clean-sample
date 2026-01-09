@@ -11,7 +11,7 @@ final class DueDate
     const STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
-     * @var string
+     * @var object
      */
     private $dueDate;
 
