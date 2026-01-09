@@ -56,23 +56,16 @@ class EloquentTaskRepository implements TaskRepositoryInterface
     {
         $eloquentTask = $this->model->find($task->id()->value());
         if (is_null($eloquentTask)) {
-            // 新規登録
-            $eloquentTask = $this->model->create([
-                'name' => $task->name()->value(),
-                'due_date' => $task->dueDate()->value()
-            ]);
-        } else {
-            // 更新
-            $eloquentTask->name = $task->name()->value();
-            $eloquentTask->due_date = $task->dueDate()->value();
-            $eloquentTask->is_done = $task->isDone();
-            $eloquentTask->is_archived = $task->isArchived();
-            $eloquentTask->save();
+            $eloquentTask = new $this->model();
         }
-        dd($task, $eloquentTask);
+
+        $eloquentTask->name = $task->name()->value();
+        $eloquentTask->due_date = $task->dueDate()->value();
+        $eloquentTask->is_done = $task->isDone();
+        $eloquentTask->is_archived = $task->isArchived();
+        $eloquentTask->save();
         return $this->toEntity($eloquentTask);
     }
-
     /**
      * @param Collection $collection
      *
@@ -105,6 +98,9 @@ class EloquentTaskRepository implements TaskRepositoryInterface
         $id = new TaskId($eloquentTask->id);
         $name = new TaskName($eloquentTask->name);
         $dueDate = new DueDate($eloquentTask->due_date);
-        return new Task($id, $name, $dueDate);
+        $task = new Task($id, $name, $dueDate);
+        $task->setIsDone((bool) $eloquentTask->is_done);
+        $task->setIsArchived((bool) $eloquentTask->is_archived);
+        return $task;
     }
 }
