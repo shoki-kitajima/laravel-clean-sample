@@ -52,7 +52,8 @@
 
 1. TaskRepositoryInterface
 2. EloquentTaskRepository
-3. InMemoryTaskRepository
+3. TaskModel // extends Model
+4. InMemoryTaskRepository　// You don't have to use it
 
 **path**
 
