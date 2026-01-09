@@ -1,71 +1,76 @@
 <?php
 namespace Packages\Infrastructures\EloquentModels;
 
-use Illuminate\Database\Eloquent\Model;
 use Packages\Domain\Repositories\TaskRepositoryInterface;
 use Packages\Domain\Task;
 use Packages\Domain\TaskId;
 use Packages\Domain\TaskName;
 use Packages\Domain\DueDate;
+use Packages\Infrastructures\EloquentModels\TaskModel;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * タスクリポジトリEloquent実装
  */
-class EloquentTaskRepository extends Model implements TaskRepositoryInterface
+class EloquentTaskRepository implements TaskRepositoryInterface
 {
-    protected $table = 'tasks';
-    protected $fillable = ['name', 'due_date'];
+    /**
+     * @var TaskModel
+     */
+    private $model;
+
+    /**
+     * @param TaskModel $model
+     */
+    public function __construct(TaskModel $model)
+    {
+        $this->model = $model;
+    }
 
     /**
      * @return array
      */
     public function getAll(): array
     {
-        return $this->collectionToEntityArray(parent::select()->where('is_archived', '=', false)->get());
-    }
-
-    /**
-     * @param Task $task
-     * @return void
-     */
-    public function register(Task $task): Task
-    {
-        $newTask = parent::create([
-            'name' => $task->name()->value(),
-            'due_date' => $task->dueDate()->value()
-        ]);
-        return $this->toEntity($newTask);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return void
-     */
-    public function toggleIsDone(TaskId $taskId): void
-    {
-        $eloquentTask = parent::find($taskId->value());
-        if (is_null($eloquentTask)) {
-            throw new \Exception('trying to find a nonexistent task');
-        }
-        $eloquentTask->is_done = $eloquentTask->is_done ? false : true;
-        $eloquentTask->save();
+        return $this->collectionToEntityArray($this->model->select()->where('is_archived', '=', false)->get());
     }
 
     /**
      * @param TaskId $taskId
-     *
-     * @return void
+     * @return Task|null
      */
-    public function archive(TaskId $taskId): void
+    public function findById(TaskId $taskId): ?Task
     {
-        $eloquentTask = parent::find($taskId->value());
+        $eloquentTask = $this->model->find($taskId->value());
         if (is_null($eloquentTask)) {
-            throw new \Exception('trying to find a nonexistent task');
+            return null;
         }
-        $eloquentTask->is_archived = true;
-        $eloquentTask->save();
+        return $this->toEntity($eloquentTask);
+    }
+
+    /**
+     * @param Task $task
+     * @return Task
+     */
+    public function save(Task $task): Task
+    {
+        $eloquentTask = $this->model->find($task->id()->value());
+        if (is_null($eloquentTask)) {
+            // 新規登録
+            $eloquentTask = $this->model->create([
+                'name' => $task->name()->value(),
+                'due_date' => $task->dueDate()->value()
+            ]);
+        } else {
+            // 更新
+            $eloquentTask->name = $task->name()->value();
+            $eloquentTask->due_date = $task->dueDate()->value();
+            $eloquentTask->is_done = $task->isDone();
+            $eloquentTask->is_archived = $task->isArchived();
+            $eloquentTask->save();
+        }
+        dd($task, $eloquentTask);
+        return $this->toEntity($eloquentTask);
     }
 
     /**
@@ -91,15 +96,15 @@ class EloquentTaskRepository extends Model implements TaskRepositoryInterface
     }
 
     /**
-     * @param EloquentTaskRepository $eloquentObj
+     * @param EloquentTaskRepository $eloquentTask
      *
      * @return Task
      */
-    private function toEntity(EloquentTaskRepository $eloquentObj): Task
+    private function toEntity(TaskModel $eloquentTask): Task
     {
-        $id = new TaskId($eloquentObj->id);
-        $name = new TaskName($eloquentObj->name);
-        $dueDate = new DueDate($eloquentObj->due_date);
+        $id = new TaskId($eloquentTask->id);
+        $name = new TaskName($eloquentTask->name);
+        $dueDate = new DueDate($eloquentTask->due_date);
         return new Task($id, $name, $dueDate);
     }
 }

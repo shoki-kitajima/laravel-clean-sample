@@ -1,0 +1,56 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+    # --- 1. アプリケーションサービス (PHP-FPM) ---
+    app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        container_name: laravel-app
+        restart: always
+        volumes:
+            # 開発中はコード変更をリアルタイムで反映させるためにプロジェクト全体をマウント
+            - ./:/var/www/html
+            # 【修正点】 vendor ディレクトリをホストマウントから除外し、ビルドされた vendor を保持する
+            - /var/www/html/vendor # 匿名ボリュームを追加
+        networks:
+            - app-network
+
+    # --- 2. Webサーバーサービス (Nginx) ---
+    nginx:
+        image: nginx:stable-alpine
+        container_name: laravel-nginx
+        restart: always
+        ports:
+            - "8080:80" # ホストの8080ポートでアクセス可能にする
+        volumes:
+            - ./:/var/www/html # アプリケーションコードをマウント
+            - ./default.conf:/etc/nginx/conf.d/default.conf # Nginx設定ファイルをマウント
+        depends_on:
+            - app
+        networks:
+            - app-network
+
+    # --- 3. データベースサービス (MySQL) ---
+    db:
+        image: mysql:8.0
+        container_name: laravel-db
+        restart: always
+        environment:
+            MYSQL_DATABASE: laravel_clean
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_USER: laravel_user
+            MYSQL_PASSWORD: laravel_password
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    dbdata:
+        driver: local
